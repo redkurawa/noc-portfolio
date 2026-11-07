@@ -1,23 +1,19 @@
-# NOC Portfolio
+# Adi Sudana — Network Engineering Portfolio
 
-A clean, light-theme portfolio for Network Operations, Network Engineering and Automation.
+A portfolio focused on Network Operations, IP networking, routing, VoIP infrastructure and practical automation.
 
-## Preview locally
-
-Open `index.html` in a browser. No build tools or package installation are required.
-
-## Structure
-
-- `index.html` — page content and sections
-- `styles.css` — responsive layout and visual styling
+## Website files
+- `index.html` — portfolio content
+- `styles.css` — responsive styling
 - `script.js` — mobile navigation and footer year
 
-## Portfolio content status
+## Evidence and accuracy
+The APNIC WHOIS section is based on record text supplied for this portfolio. It presents the registered contact association as supporting evidence, not as proof of network ownership or of every configuration activity.
 
-The initial page includes project summaries as placeholders. Detailed implementation notes and verified evidence will be added after the project scripts are provided and reviewed.
+Private contact details are intentionally omitted. Customer identifiers, credentials, private IP information and confidential network diagrams must not be published.
 
-No customer network diagrams, private infrastructure details, credentials or production secrets should be published.
+## Project status
+The MikroTik monitoring and BGP case-study summaries are preliminary. Implementation details, scripts, test evidence and outcomes will be added only after source material is reviewed.
 
-## Deployment
-
-This is a static website and can be hosted with GitHub Pages. Enable Pages in the repository settings and select the `main` branch as the deployment source.
+## Preview
+Open `index.html` in a browser, or deploy this static site with GitHub Pages from the `main` branch and repository root.
