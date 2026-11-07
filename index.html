@@ -3,98 +3,89 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Portfolio of a NOC and Network Automation Engineer focused on network monitoring, troubleshooting, VoIP infrastructure and workflow automation.">
-  <meta name="theme-color" content="#ffffff">
-  <title>NOC & Network Automation Engineer | Portfolio</title>
+  <meta name="description" content="Network engineering portfolio covering NOC operations, IP network administration, routing, VoIP monitoring and automation.">
+  <meta name="theme-color" content="#101d32">
+  <title>Adi Sudana | Network Engineer & NOC</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="noc-site">
   <header class="site-header">
     <div class="container nav-wrap">
-      <a class="brand" href="#home" aria-label="Portfolio home"><span class="brand-mark">N</span><span>Network<span class="brand-muted">.folio</span></span></a>
+      <a class="brand" href="#home"><span class="brand-mark">AS</span><span>ADI SUDANA <span class="brand-muted">/ NETWORK ENGINEER</span></span></a>
       <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
       <nav class="nav" aria-label="Main navigation">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact" class="nav-cta">Contact</a>
+        <a href="#profile">Profile</a><a href="#evidence">Network Evidence</a><a href="#projects">Projects</a><a href="#contact" class="nav-cta">Contact</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero section" id="home">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <div class="eyebrow"><span class="status-dot"></span> NETWORK OPERATIONS & AUTOMATION</div>
-          <h1>Keeping networks<br><span>connected and reliable.</span></h1>
-          <p class="hero-lead">I work across network monitoring, troubleshooting, VoIP infrastructure, Linux systems and practical automation — helping teams identify issues and respond faster.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#projects">Explore projects <span aria-hidden="true">↗</span></a>
-            <a class="button button-secondary" href="#contact">Get in touch</a>
+    <section class="noc-hero" id="home">
+      <div class="container noc-hero-grid">
+        <div>
+          <div class="noc-kicker"><span class="status-dot"></span> NETWORK OPERATIONS · INFRASTRUCTURE · ROUTING</div>
+          <h1>Network Engineer<br><span>& NOC Operations</span></h1>
+          <p class="noc-intro">Focused on keeping IP networks and VoIP services reachable, investigating connectivity incidents, and building practical monitoring and automation for infrastructure teams.</p>
+          <div class="hero-actions"><a class="button button-primary" href="#evidence">View network evidence <span>↓</span></a><a class="button button-secondary" href="#projects">Technical projects</a></div>
+          <div class="noc-tags"><span>IP Networking</span><span>MikroTik</span><span>BGP</span><span>VoIP</span><span>Linux</span><span>Automation</span></div>
+        </div>
+        <div class="noc-console">
+          <div class="console-head"><span>NETWORK OPERATIONS / OVERVIEW</span><span class="console-live"><i></i> ENGINEERING</span></div>
+          <div class="console-map">
+            <div class="map-backbone"></div><div class="map-branch branch-left"></div><div class="map-branch branch-right"></div><div class="map-branch branch-down"></div>
+            <div class="net-device device-core"><b>CORE</b><small>IP NETWORK</small></div>
+            <div class="net-device device-edge"><b>EDGE</b><small>ROUTING</small></div>
+            <div class="net-device device-voip"><b>VoIP</b><small>SERVICE HOSTS</small></div>
+            <div class="net-device device-noc"><b>NOC</b><small>MONITORING / ALERTS</small></div>
+            <span class="map-label label-a">BGP / PREFIX</span><span class="map-label label-b">ICMP / STATUS</span>
           </div>
-          <div class="hero-meta"><span>Network Operations</span><i></i><span>Infrastructure</span><i></i><span>Automation</span></div>
-        </div>
-        <div class="hero-panel" aria-label="Network operations illustration">
-          <div class="panel-top"><span class="panel-label">OPERATIONS OVERVIEW</span><span class="live-label"><span></span> MONITORING</span></div>
-          <div class="network-visual">
-            <div class="network-line line-a"></div><div class="network-line line-b"></div><div class="network-line line-c"></div>
-            <div class="node node-core"><span class="node-icon">⌘</span><b>CORE</b><small>Network</small></div>
-            <div class="node node-left"><span class="node-icon">⇄</span><b>ROUTING</b><small>Connectivity</small></div>
-            <div class="node node-right"><span class="node-icon">▣</span><b>VOIP</b><small>Services</small></div>
-            <div class="node node-bottom"><span class="node-icon">⌁</span><b>AUTOMATION</b><small>Alerts & workflows</small></div>
-          </div>
-          <div class="panel-footer"><div><span class="metric-label">FOCUS</span><strong>Visibility & response</strong></div><div class="panel-badge">NETWORK / SYSTEMS</div></div>
+          <div class="console-foot"><span>ENGINEERING SCOPE</span><b>Availability · Routing · Incident Response</b></div>
         </div>
       </div>
     </section>
 
-    <section class="trust-strip"><div class="container trust-inner"><span>AREAS OF FOCUS</span><b>Network Monitoring</b><b>VoIP Infrastructure</b><b>Routing & BGP</b><b>Workflow Automation</b></div></section>
+    <section class="noc-facts"><div class="container facts-row"><div><b>01</b><span>Network operations</span></div><div><b>02</b><span>IP & routing visibility</span></div><div><b>03</b><span>VoIP service monitoring</span></div><div><b>04</b><span>Operational automation</span></div></div></section>
 
-    <section class="section" id="about">
-      <div class="container two-col">
-        <div><p class="section-kicker">01 / ABOUT</p><h2>Practical engineering.<br><span>Clear operational thinking.</span></h2></div>
-        <div class="about-copy"><p>I am an IT infrastructure professional interested in building dependable network services and useful automation. My work and learning focus on monitoring connectivity, investigating service interruptions, supporting VoIP environments and reducing repetitive operational tasks.</p><p>I value solutions that are understandable, maintainable and useful to the people who operate them. This portfolio will document selected projects, their technical approach and verified results.</p></div>
-      </div>
-    </section>
+    <section class="section" id="profile"><div class="container profile-grid">
+      <div><p class="section-kicker">01 / PROFESSIONAL PROFILE</p><h2>Operational experience,<br><span>backed by technical evidence.</span></h2></div>
+      <div class="about-copy"><p>My work is centered on network and infrastructure operations: monitoring service reachability, supporting VoIP environments, investigating routing and connectivity issues, and helping teams respond to incidents.</p><p>This portfolio is being built around verifiable technical evidence and practical engineering work. It will distinguish between documented responsibilities, incident case studies, and scripts or implementations that can be reviewed directly.</p><p class="profile-note">Detailed employment dates and role descriptions will be aligned with the accompanying resume.</p></div>
+    </div></section>
 
-    <section class="section skills-section" id="skills">
-      <div class="container">
-        <div class="section-heading"><div><p class="section-kicker">02 / CAPABILITIES</p><h2>Technical focus</h2></div><p class="section-note">Tools and domains I work with across network and infrastructure operations.</p></div>
-        <div class="skills-grid">
-          <article class="skill-card"><span class="skill-icon">⌁</span><h3>Network Operations</h3><p>Connectivity monitoring, ping checks, incident awareness and troubleshooting.</p><span class="skill-tags">Monitoring · Troubleshooting</span></article>
-          <article class="skill-card"><span class="skill-icon">⇄</span><h3>Routing & MikroTik</h3><p>RouterOS scripting, routing fundamentals and network availability checks.</p><span class="skill-tags">MikroTik · BGP</span></article>
-          <article class="skill-card"><span class="skill-icon">▣</span><h3>VoIP Infrastructure</h3><p>Monitoring customer-facing VoIP hosts and supporting service availability.</p><span class="skill-tags">VoIP · Infrastructure</span></article>
-          <article class="skill-card"><span class="skill-icon">⌘</span><h3>Systems & Automation</h3><p>Linux administration and workflow automation for operational tasks.</p><span class="skill-tags">Linux · n8n · APIs</span></article>
+    <section class="section evidence-section" id="evidence"><div class="container">
+      <div class="section-heading"><div><p class="section-kicker">02 / NETWORK EVIDENCE</p><h2>Public registry record</h2></div><p class="section-note">A verifiable APNIC WHOIS record associated with network administration and technical contacts.</p></div>
+      <article class="evidence-card">
+        <div class="evidence-top"><div><span class="evidence-label">APNIC WHOIS · INETNUM</span><h3>49.156.60.0/24</h3><p>PT IP Telecom Multimedia Indonesia · Indonesia</p></div><span class="evidence-status">REGISTRY RECORD</span></div>
+        <div class="evidence-data">
+          <div><small>NETWORK RANGE</small><b>49.156.60.0 – 49.156.60.255</b></div>
+          <div><small>NETWORK NAME</small><b>IPTELECOM-ID</b></div>
+          <div><small>ADMIN-C / TECH-C</small><b>AS468-AP</b></div>
+          <div><small>REGISTERED CONTACT</small><b>Adi Sudana</b></div>
+          <div><small>MAINTAINER</small><b>MAINT-ID-EZ</b></div>
+          <div><small>LAST MODIFIED</small><b>09 Mar 2026 <em>(IRT object)</em></b></div>
         </div>
+        <div class="evidence-explanation"><span class="evidence-check">✓</span><p><b>What this supports</b><br>The supplied APNIC record lists Adi Sudana under the person handle referenced by the network's administrative and technical contact fields. This is supporting evidence of a registered network contact association; it does not, by itself, establish ownership of the network or prove every configuration task.</p></div>
+        <div class="evidence-bottom"><span>Personal contact details intentionally omitted for privacy.</span><span>Source: APNIC WHOIS data supplied for this portfolio</span></div>
+      </article>
+    </div></section>
+
+    <section class="section" id="projects"><div class="container">
+      <div class="section-heading"><div><p class="section-kicker">03 / ENGINEERING WORK</p><h2>Network projects & case studies</h2></div><p class="section-note">Practical work will be documented with scripts, sanitized configuration excerpts, test scenarios and outcomes.</p></div>
+      <div class="noc-projects">
+        <article class="noc-project"><div class="project-index">01 <span>MONITORING / MIKROTIK</span></div><div class="project-symbol">⌁</div><h3>VoIP Host Availability Monitoring</h3><p>MikroTik-based reachability checks for customer VoIP hosts, with an alert sent to the responsible infrastructure team when a monitored host becomes unreachable.</p><div class="project-meta"><span>RouterOS scripting</span><span>ICMP monitoring</span><span>WhatsApp alert</span></div><div class="project-state">SCRIPT & TECHNICAL NOTES TO BE ADDED</div></article>
+        <article class="noc-project"><div class="project-index">02 <span>ROUTING / INCIDENT CASE STUDY</span></div><div class="project-symbol">⇄</div><h3>BGP & IP Prefix Reachability</h3><p>Case study based on an incident where an office IP prefix and AS number became unavailable from domestic networks. The write-up will cover symptoms, investigation and monitoring approach.</p><div class="project-meta"><span>BGP</span><span>IP prefix</span><span>Reachability</span></div><div class="project-state">CASE STUDY TO BE DOCUMENTED</div></article>
+        <article class="noc-project"><div class="project-index">03 <span>NETWORK ENGINEERING</span></div><div class="project-symbol">⌘</div><h3>Additional Network Script</h3><p>Reserved for the third network script and its verified purpose, implementation details and operational results.</p><div class="project-meta"><span>Network automation</span><span>Operations</span></div><div class="project-state">AWAITING SOURCE SCRIPT</div></article>
       </div>
-    </section>
+      <p class="privacy-note">Customer identifiers, private IP addressing, credentials, personal contact details and confidential topology information will not be published.</p>
+    </div></section>
 
-    <section class="section projects-section" id="projects">
-      <div class="container">
-        <div class="section-heading"><div><p class="section-kicker">03 / SELECTED WORK</p><h2>Projects & case studies</h2></div><p class="section-note">Technical write-ups will be added as each project is documented and reviewed.</p></div>
-        <div class="projects-grid">
-          <article class="project-card"><div class="project-top"><span class="project-number">01</span><span class="project-type">NETWORK MONITORING</span></div><div class="project-art art-network"><span class="art-center">HOST</span><span class="art-point point-one">PING</span><span class="art-point point-two">ALERT</span><span class="art-point point-three">TEAM</span><span class="art-link"></span></div><h3>MikroTik Host Availability Alerts</h3><p>Monitoring VoIP-related hosts and notifying the responsible infrastructure team when connectivity checks detect an outage.</p><div class="project-bottom"><span>MikroTik · Monitoring · WhatsApp</span><span class="coming-soon">DETAILS SOON</span></div></article>
-          <article class="project-card"><div class="project-top"><span class="project-number">02</span><span class="project-type">ROUTING / CASE STUDY</span></div><div class="project-art art-routing"><div class="route-box">AS</div><div class="route-path"></div><div class="route-box route-box-alt">IP</div><span class="route-caption">ROUTE VISIBILITY</span></div><h3>BGP & IP Prefix Visibility</h3><p>A monitoring case study based on an incident involving an office IP prefix and AS number becoming unreachable from domestic networks.</p><div class="project-bottom"><span>BGP · Prefix · Reachability</span><span class="coming-soon">DETAILS SOON</span></div></article>
-          <article class="project-card"><div class="project-top"><span class="project-number">03</span><span class="project-type">SCRIPTING / AUTOMATION</span></div><div class="project-art art-code"><div class="code-window"><span></span><span></span><span></span><code>if (serviceDown) {<br>&nbsp; notifyTeam();<br>}</code></div></div><h3>Network Operations Scripts</h3><p>A collection of practical scripts designed to support monitoring, reduce manual checks and make operational alerts more consistent.</p><div class="project-bottom"><span>Scripting · Alerts · Operations</span><span class="coming-soon">DETAILS SOON</span></div></article>
-        </div>
-        <p class="project-disclaimer">Project details, implementation notes and supporting evidence will be published after review. No customer or production network information is disclosed.</p>
-      </div>
-    </section>
+    <section class="section operations-section"><div class="container operations-grid"><div><p class="section-kicker">04 / WORKING METHOD</p><h2>From network signal<br><span>to useful action.</span></h2></div><div class="ops-steps"><div><b>01</b><p><strong>Observe</strong><small>Check reachability, routing state and service symptoms.</small></p></div><div><b>02</b><p><strong>Investigate</strong><small>Correlate evidence and narrow down the affected layer.</small></p></div><div><b>03</b><p><strong>Respond</strong><small>Notify the right team with clear, actionable information.</small></p></div><div><b>04</b><p><strong>Document</strong><small>Record the technical approach and verified outcome.</small></p></div></div></div></section>
 
-    <section class="section approach-section">
-      <div class="container approach-wrap"><div><p class="section-kicker">04 / APPROACH</p><h2>Built for real<br><span>operational needs.</span></h2></div><div class="approach-list"><div><span>01</span><p><b>Understand the issue</b><small>Start with the service, impact and operational context.</small></p></div><div><span>02</span><p><b>Make it observable</b><small>Use clear checks, useful signals and actionable alerts.</small></p></div><div><span>03</span><p><b>Document the result</b><small>Keep the solution maintainable and the evidence honest.</small></p></div></div></div>
-    </section>
-
-    <section class="section contact-section" id="contact">
-      <div class="container contact-box"><div><p class="section-kicker">05 / CONTACT</p><h2>Let's connect.</h2><p>Open to discussing network operations, infrastructure support and automation opportunities.</p></div><a class="button button-light" href="https://github.com/redkurawa" target="_blank" rel="noopener noreferrer">Find me on GitHub <span aria-hidden="true">↗</span></a></div>
-    </section>
+    <section class="section contact-section" id="contact"><div class="container contact-box"><div><p class="section-kicker">05 / CONTACT</p><h2>Let's discuss network engineering.</h2><p>Open to opportunities in NOC, Network Engineering, VoIP and Infrastructure Automation.</p></div><a class="button button-light" href="https://github.com/redkurawa" target="_blank" rel="noopener noreferrer">GitHub profile ↗</a></div></section>
   </main>
-
-  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="#home"><span class="brand-mark">N</span><span>Network<span class="brand-muted">.folio</span></span></a><span>© <span id="year"></span> · NOC & Network Automation Portfolio</span><a href="#home">Back to top ↑</a></div></footer>
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="#home"><span class="brand-mark">AS</span><span>ADI SUDANA</span></a><span>Network Engineering Portfolio · <span id="year"></span></span><a href="#home">Back to top ↑</a></div></footer>
   <script src="script.js"></script>
 </body>
 </html>
