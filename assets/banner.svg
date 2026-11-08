@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-labelledby="title desc">
+  <title id="title">Adi Sudana — Network Engineering</title>
+  <desc id="desc">Network Engineer, NOC Operations, VoIP and IP Infrastructure.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0D1117"/>
+      <stop offset="1" stop-color="#13283B"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2386C8"/>
+      <stop offset="1" stop-color="#55B6F2"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#6BAED6" stroke-opacity=".09" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="280" rx="18" fill="url(#bg)"/>
+  <rect width="1200" height="280" rx="18" fill="url(#grid)"/>
+  <path d="M0 235 C210 205 350 270 560 225 S930 190 1200 230" fill="none" stroke="#2386C8" stroke-opacity=".28" stroke-width="2"/>
+  <rect x="0" y="0" width="9" height="280" rx="4" fill="url(#accent)"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="76" y="103" fill="#8CCBFA" font-size="17" font-weight="700" letter-spacing="4">NETWORK ENGINEERING PORTFOLIO</text>
+    <text x="72" y="169" fill="#FFFFFF" font-size="58" font-weight="700" letter-spacing="1">ADI SUDANA</text>
+    <rect x="76" y="194" width="72" height="4" rx="2" fill="url(#accent)"/>
+    <text x="76" y="232" fill="#C9D7E3" font-size="20">Network Engineer  |  NOC Operations  |  VoIP &amp; IP Infrastructure</text>
+  </g>
+  <g fill="none" stroke="#55B6F2" stroke-width="2.5" stroke-opacity=".72">
+    <path d="M850 75 L965 130 L1080 75 M965 130 L965 220 M965 130 L1110 190"/>
+    <path d="M850 75 L850 190 L965 220"/>
+    <circle cx="850" cy="75" r="13" fill="#13283B"/>
+    <circle cx="965" cy="130" r="17" fill="#13283B"/>
+    <circle cx="1080" cy="75" r="13" fill="#13283B"/>
+    <circle cx="850" cy="190" r="11" fill="#13283B"/>
+    <circle cx="965" cy="220" r="12" fill="#13283B"/>
+    <circle cx="1110" cy="190" r="12" fill="#13283B"/>
+  </g>
+  <g fill="#8CCBFA">
+    <circle cx="850" cy="75" r="4"/><circle cx="965" cy="130" r="5"/>
+    <circle cx="1080" cy="75" r="4"/><circle cx="850" cy="190" r="4"/>
+    <circle cx="965" cy="220" r="4"/><circle cx="1110" cy="190" r="4"/>
+  </g>
+  <text x="1090" y="252" text-anchor="end" fill="#7D9CB5" font-family="Arial, Helvetica, sans-serif" font-size="12" letter-spacing="2">CONNECT • MONITOR • OPTIMIZE</text>
+</svg>
