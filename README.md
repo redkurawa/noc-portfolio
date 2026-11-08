@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.svg" alt="Adi Sudana — Network Engineer | NOC Operations | VoIP & IP Infrastructure" width="100%">
+</p>
+
 # Adi Sudana — Network Engineering Portfolio
 
 A portfolio focused on Network Operations, IP networking, routing, VoIP infrastructure and practical automation.
@@ -6,6 +10,7 @@ A portfolio focused on Network Operations, IP networking, routing, VoIP infrastr
 - `index.html` — portfolio content
 - `styles.css` — responsive styling
 - `script.js` — mobile navigation and footer year
+- `assets/banner.svg` — locally stored portfolio banner
 
 ## Evidence and accuracy
 The APNIC WHOIS section is based on record text supplied for this portfolio. It presents the registered contact association as supporting evidence, not as proof of network ownership or of every configuration activity.
