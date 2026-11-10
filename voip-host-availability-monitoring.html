@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="VoIP Host Availability Monitoring using MikroTik Netwatch and WhatsApp Gateway notifications." />
-  <title>VoIP Host Availability Monitoring — NOC Portfolio</title>
+  <meta name="description" content="Otomatisasi monitoring host VoIP menggunakan MikroTik Netwatch dengan notifikasi status UP dan DOWN melalui WhatsApp." />
+  <title>VoIP Host Monitoring &amp; WhatsApp Alert Automation — NOC Portfolio</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
     .project-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap}
@@ -52,17 +52,51 @@
 
     <section class="project-hero">
       <div class="eyebrow">Project 01 · Monitoring &amp; Incident Detection</div>
-      <h1>VoIP Host Availability Monitoring</h1>
-      <p class="lead">Monitoring ketersediaan host perangkat klien VoIP menggunakan MikroTik Netwatch. Ketika host tidak merespons ping, sistem mengirim notifikasi DOWN ke WhatsApp Gateway. Saat host kembali merespons, notifikasi UP dikirim sebagai informasi pemulihan.</p>
+      <h1>VoIP Host Monitoring &amp; WhatsApp Alert Automation</h1>
+      <p class="lead">Otomatisasi pemantauan host perangkat klien VoIP menggunakan MikroTik Netwatch yang terintegrasi dengan WhatsApp Gateway. Setiap perubahan status host menjadi DOWN maupun kembali UP dikirim otomatis ke WhatsApp, sehingga tim NOC dapat mengetahui gangguan dan pemulihan tanpa harus terus membuka console MikroTik.</p>
       <div class="pill-row">
         <span class="pill">MikroTik RouterOS</span><span class="pill">Netwatch</span><span class="pill">ICMP / Ping</span><span class="pill">HTTP POST</span><span class="pill">WhatsApp Gateway</span>
       </div>
     </section>
 
+    <section class="detail-card">
+      <h2>1. Problem — Tantangan Sebelum Otomatisasi</h2>
+      <p>Sebelum notifikasi WhatsApp diterapkan, pemantauan host sangat bergantung pada pengecekan manual melalui console MikroTik. Kondisi ini membuat informasi host DOWN berisiko terlewat, terutama ketika petugas NOC sedang menangani pekerjaan lain.</p>
+      <ol>
+        <li><strong>Akses monitoring tidak praktis:</strong> pemeriksaan melalui MikroTik cukup berbelit dan lebih nyaman dilakukan menggunakan PC.</li>
+        <li><strong>Monitoring bergantung pada operator:</strong> petugas NOC tidak selalu membuka console MikroTik setiap saat.</li>
+        <li><strong>Informasi gangguan berisiko terlambat:</strong> host yang DOWN dapat tidak segera diketahui apabila tidak ada pengecekan manual.</li>
+        <li><strong>Status pemulihan perlu diperiksa kembali:</strong> petugas harus mengecek ulang untuk memastikan host sudah UP.</li>
+      </ol>
+      <h2>2. Solution — Otomatisasi dengan WhatsApp</h2>
+      <p>MikroTik Netwatch memantau host yang didaftarkan. Script pada event DOWN dan UP mengirimkan pesan melalui HTTP POST ke WhatsApp Gateway. WhatsApp dipilih karena mudah diakses dari smartphone, tidak mengharuskan petugas berada di depan PC, dan memungkinkan pemantauan dari lokasi berbeda.</p>
+      <ol>
+        <li>Daftarkan alamat IP host klien pada <strong>Tools → Netwatch</strong>.</li>
+        <li>Pasang script notifikasi pada kolom <strong>Down</strong> dan <strong>Up</strong>.</li>
+        <li>Ketika host DOWN, Netwatch memicu script DOWN dan mengirimkan notifikasi WhatsApp.</li>
+        <li>Ketika host kembali UP, Netwatch memicu script UP dan mengirimkan notifikasi pemulihan.</li>
+        <li>Petugas NOC membaca notifikasi dari WhatsApp di smartphone tanpa harus membuka console MikroTik.</li>
+      </ol>
+      <h2>3. Result — Perubahan Sebelum dan Sesudah</h2>
+      <p>Angka berikut menggambarkan perubahan proses kerja berdasarkan rancangan otomasi, bukan statistik historis atau hasil pengukuran SLA.</p>
+      <table class="config-table">
+        <thead><tr><th>Indikator proses</th><th>Sebelum</th><th>Sesudah</th></tr></thead>
+        <tbody>
+          <tr><td>Notifikasi otomatis saat DOWN</td><td>0 notifikasi otomatis</td><td>1 notifikasi otomatis setiap event DOWN yang terdeteksi</td></tr>
+          <tr><td>Notifikasi saat host pulih</td><td>0 notifikasi otomatis</td><td>1 notifikasi otomatis setiap event UP yang terdeteksi</td></tr>
+          <tr><td>Ketergantungan PC untuk menerima informasi</td><td>1 PC / console MikroTik perlu diakses untuk pengecekan</td><td>0 PC diperlukan untuk menerima notifikasi; cukup 1 smartphone</td></tr>
+          <tr><td>Metode mengetahui status</td><td>Pengecekan manual melalui console</td><td>Notifikasi otomatis melalui 1 kanal WhatsApp</td></tr>
+          <tr><td>Lokasi pemantauan oleh petugas</td><td>Terbatas pada tempat yang dapat mengakses console MikroTik</td><td>Dapat dipantau dari mana saja selama smartphone dan WhatsApp terhubung</td></tr>
+          <tr><td>Perubahan status yang diinformasikan</td><td>Perlu pengecekan ulang secara manual</td><td>2 kondisi diinformasikan: DOWN dan UP</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Dampak operasional:</strong> informasi gangguan dan pemulihan menjadi proaktif, risiko host DOWN terlewat karena tidak sedang membuka console berkurang, dan petugas dapat melakukan triase lebih awal. Waktu respons aktual, jumlah insiden yang sebelumnya terlewat, serta persentase penurunan keterlambatan belum dihitung karena belum tersedia data pembanding.</p>
+    </section>
+
     <div class="detail-grid">
       <section class="detail-card">
         <h2>🎯 Tujuan</h2>
-        <p>Mengetahui lebih awal apabila perangkat atau jalur jaringan klien mengalami gangguan. Tim NOC memperoleh informasi ketika host tidak dapat dijangkau dan ketika konektivitas kembali normal, sehingga pemeriksaan dapat dilakukan lebih cepat.</p>
+        <p>Memberikan visibilitas status host klien secara proaktif melalui notifikasi WhatsApp, agar tim NOC dapat mengetahui gangguan maupun pemulihan tanpa harus terus memantau console MikroTik.</p>
       </section>
       <section class="detail-card">
         <h2>🧩 Komponen</h2>
@@ -163,12 +197,15 @@
       <figcaption class="muted">Bukti notifikasi monitoring WhatsApp — identitas klien dan bagian tengah IP publik disamarkan. Klik gambar untuk melihat ukuran lebih besar.</figcaption>
     </figure>
 
-    <h2>📈 Hasil dan Manfaat Operasional</h2>
+    <h2>📈 Manfaat Operasional Tambahan</h2>
     <ul>
-      <li>Gangguan konektivitas host dapat diketahui secara proaktif melalui notifikasi otomatis.</li>
-      <li>Tim NOC memperoleh informasi waktu kejadian DOWN dan pemulihan UP.</li>
-      <li>Pemeriksaan awal dapat diarahkan ke host atau jalur jaringan yang terdampak.</li>
-      <li>Notifikasi mengurangi ketergantungan pada laporan awal dari pengguna klien.</li>
+      <li><strong>Mobilitas:</strong> monitoring dapat dilihat dari smartphone tanpa harus berada di depan PC atau workstation NOC.</li>
+      <li><strong>Awareness tim:</strong> notifikasi dapat dibagikan pada grup WhatsApp operasional sehingga petugas terkait memperoleh informasi yang sama.</li>
+      <li><strong>Informasi dua arah:</strong> status DOWN dan UP membantu petugas membedakan gangguan yang masih berlangsung dengan koneksi yang sudah pulih.</li>
+      <li><strong>Prioritas troubleshooting:</strong> alamat host dan waktu notifikasi menjadi petunjuk awal untuk menentukan perangkat atau jalur yang perlu diperiksa.</li>
+      <li><strong>Jejak kejadian:</strong> riwayat pesan WhatsApp dapat menjadi referensi awal untuk menelusuri urutan gangguan dan pemulihan.</li>
+      <li><strong>Efisiensi operasional:</strong> mengurangi kebutuhan membuka console hanya untuk mengetahui perubahan status host.</li>
+      <li><strong>Proaktif:</strong> tim NOC dapat mulai melakukan verifikasi dan koordinasi lebih awal, bukan hanya menunggu laporan dari klien.</li>
     </ul>
     <p><span class="status">Monitoring &amp; alerting implemented</span></p>
 
