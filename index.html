@@ -221,43 +221,37 @@
       <h2>🚀 Featured Projects</h2>
       <h3>1. VoIP Host Availability Monitoring</h3>
       <p>
-        Monitoring VoIP service host reachability through MikroTik and notifying
-        the operator when a monitored host becomes unreachable.
+        Monitoring VoIP service host reachability through MikroTik Netwatch,
+        with automated WhatsApp notifications when a monitored host goes down
+        or recovers.
       </p>
       <table>
         <tbody>
           <tr>
             <th>Problem</th>
             <td>
-              Service reachability needs to be monitored so an outage can be
-              noticed promptly.
+              Detect client-side network or service interruptions early,
+              before they are reported by users.
             </td>
           </tr>
           <tr>
             <th>Approach</th>
             <td>
-              Use ICMP reachability checks on MikroTik and send a WhatsApp
-              notification when the monitored condition is met.
+              Register client hosts in MikroTik Netwatch and run separate UP
+              and DOWN scripts to notify the NOC through a WhatsApp Gateway.
             </td>
           </tr>
           <tr>
             <th>Tools</th>
-            <td>MikroTik RouterOS · ICMP · WhatsApp notification</td>
+            <td>MikroTik RouterOS · Netwatch · ICMP · HTTP API · WhatsApp Gateway</td>
           </tr>
           <tr>
             <th>Status</th>
-            <td>
-              Technical notes and verification evidence are being prepared.
-            </td>
+            <td>Implemented; operational evidence and configuration notes documented.</td>
           </tr>
         </tbody>
       </table>
-      <p>
-        <a href="#project-01">Read project notes</a> ·
-        <span class="muted"
-          >Detailed script and test evidence will be added after review.</span
-        >
-      </p>
+      <p><a href="voip-host-availability-monitoring.html">Open project details →</a></p>
 
       <h3>2. BGP &amp; IP Prefix Reachability</h3>
       <p>
