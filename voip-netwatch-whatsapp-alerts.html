@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="VoIP host availability monitoring with MikroTik Netwatch and WhatsApp notifications: scripts, setup and masked evidence."
+    />
+    <title>VoIP Host Availability Monitoring: Scripts and Evidence — Adi Sudana</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .page-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+      .flow {
+        display: flex;
+        align-items: stretch;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 16px 0 20px;
+      }
+      .flow-node {
+        flex: 1 1 150px;
+        padding: 12px 14px;
+        border: 1px solid #d1d9e0;
+        border-radius: 6px;
+        background: #f6f8fa;
+        text-align: center;
+      }
+      .flow-node small {
+        display: block;
+        color: #656d76;
+        font-weight: 400;
+      }
+      .flow-arrow {
+        align-self: center;
+        color: #656d76;
+        font-size: 18px;
+      }
+      .evidence {
+        margin: 16px auto 24px;
+        max-width: 380px;
+        text-align: center;
+      }
+      .evidence img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 1px solid #d1d9e0;
+        border-radius: 8px;
+      }
+      .evidence figcaption {
+        margin-top: 8px;
+        color: #656d76;
+        font-size: 12px;
+        text-align: left;
+      }
+      @media (max-width: 700px) {
+        .flow-arrow {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="markdown-body">
+      <div class="page-nav">
+        <a href="index.html">← Back to portfolio</a>
+        <span class="muted">Project 1 · Scripts and evidence</span>
+      </div>
+
+      <h2>VoIP Host Availability Monitoring</h2>
+      <p>
+        A MikroTik router pings the devices of VoIP clients and sends a
+        WhatsApp message when a device stops answering and again when it comes
+        back. The NOC learns that a client has a network problem before the
+        client reports it.
+      </p>
+
+      <table>
+        <tbody>
+          <tr>
+            <th>Problem</th>
+            <td>
+              Client-side network or device failures were found only after the
+              client reported them.
+            </td>
+          </tr>
+          <tr>
+            <th>Approach</th>
+            <td>
+              Watch each client host with Netwatch (ICMP ping). On DOWN, a
+              script confirms the outage and posts a message to a WhatsApp
+              gateway. On UP, a second script posts a recovery message.
+            </td>
+          </tr>
+          <tr>
+            <th>Tools</th>
+            <td>
+              MikroTik RouterOS · Tools → Netwatch · RouterOS scripting ·
+              <code>/tool fetch</code> · WhatsApp gateway (HTTP API)
+            </td>
+          </tr>
+          <tr>
+            <th>Result</th>
+            <td>
+              Host status changes arrive as WhatsApp messages with the time of
+              each event. See the masked screenshot below.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>🔧 How it works</h2>
+      <div class="flow">
+        <div class="flow-node">
+          <strong>Client host</strong>
+          <small>answers ping or not</small>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node">
+          <strong>MikroTik Netwatch</strong>
+          <small>runs the Up or Down script</small>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node">
+          <strong>WhatsApp gateway</strong>
+          <small>receives an HTTP POST</small>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-node">
+          <strong>NOC phone</strong>
+          <small>gets the message</small>
+        </div>
+      </div>
+      <ol>
+        <li>
+          Netwatch pings every host on its list. When a host stops answering,
+          Netwatch runs the <strong>Down</strong> script.
+        </li>
+        <li>
+          The Down script pings the host again once per second for 60 seconds.
+          Only if no reply arrives does it send the DOWN message.
+        </li>
+        <li>
+          When the host answers again, Netwatch runs the
+          <strong>Up</strong> script, which waits 5 seconds and sends the UP
+          message.
+        </li>
+        <li>
+          Both scripts send the message with <code>/tool fetch</code> as an
+          HTTP POST to the WhatsApp gateway on the internal network.
+        </li>
+      </ol>
+
+      <h2>🛠️ What I set up</h2>
+      <ul>
+        <li>Added the Up and Down scripts in RouterOS.</li>
+        <li>
+          Added each client host to monitor in <strong>Tools → Netwatch</strong>.
+        </li>
+        <li>
+          Assigned the scripts in the <strong>Up</strong> and
+          <strong>Down</strong> fields of each Netwatch entry.
+        </li>
+      </ul>
+
+      <h2>📜 Scripts</h2>
+      <p>
+        The recipient phone number and the client label are masked. The
+        gateway address is a private IP and is left as is.
+      </p>
+
+      <h3>Up script</h3>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot terminal-dot-red"></span>
+          <span class="terminal-dot terminal-dot-yellow"></span>
+          <span class="terminal-dot terminal-dot-green"></span>
+          <span class="terminal-title">netwatch · Up script</span>
+        </div>
+        <pre><code>:local pesan "$host CLIENT UP"
+
+:delay 5s
+/tool fetch http-header-field="content-type: application/x-www-form-urlencoded" \
+    http-method=post \
+    http-data="phone=628xxxxxxxxxx&amp;message=$pesan" \
+    url="http://10.50.50.101:3000/send/message" \
+    keep-result=no;</code></pre>
+      </div>
+
+      <h3>Down script</h3>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot terminal-dot-red"></span>
+          <span class="terminal-dot terminal-dot-yellow"></span>
+          <span class="terminal-dot terminal-dot-green"></span>
+          <span class="terminal-title">netwatch · Down script</span>
+        </div>
+        <pre><code>:if ([/ping $host interval=1s count=60] = 0) do={
+
+    :local pesan "$host%20CLIENT%20DOWN"
+
+    /tool fetch \
+        http-header-field="content-type: application/x-www-form-urlencoded" \
+        http-method=post \
+        http-data="phone=628xxxxxxxxxx&amp;message=$pesan" \
+        url="http://10.50.50.101:3000/send/message" \
+        keep-result=no
+
+}</code></pre>
+      </div>
+
+      <h3>What the scripts do</h3>
+      <table>
+        <tbody>
+          <tr>
+            <th><code>$host</code></th>
+            <td>
+              The address of the Netwatch entry that triggered the script, so
+              one script serves every monitored host.
+            </td>
+          </tr>
+          <tr>
+            <th><code>/ping … count=60</code></th>
+            <td>
+              Returns the number of replies. A result of 0 means the host
+              stayed silent for 60 seconds, which filters out a single lost
+              packet before an alert is sent.
+            </td>
+          </tr>
+          <tr>
+            <th><code>:delay 5s</code></th>
+            <td>Short pause before the UP message is sent.</td>
+          </tr>
+          <tr>
+            <th><code>/tool fetch</code></th>
+            <td>
+              HTTP POST with form-encoded <code>phone</code> and
+              <code>message</code> fields to the gateway endpoint
+              <code>/send/message</code>.
+            </td>
+          </tr>
+          <tr>
+            <th><code>%20</code></th>
+            <td>URL-encoded space, so the whole message stays in one field.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>📲 Evidence</h2>
+      <p>
+        Screenshot of the WhatsApp chat that receives the notifications. Each
+        message shows the host address, a client label and UP or DOWN, with the
+        time it arrived.
+      </p>
+      <figure class="evidence">
+        <a href="assets/voip-netwatch-alerts-masked.png" target="_blank" rel="noopener">
+          <img
+            src="assets/voip-netwatch-alerts-masked.png"
+            alt="WhatsApp chat with UP and DOWN notifications from MikroTik Netwatch. Contact name, client labels and the middle of public IP addresses are hidden behind dark bars."
+            loading="lazy"
+          />
+        </a>
+        <figcaption>
+          Masked for publication: contact name and avatar, client labels, and
+          the middle two octets of public IP addresses. Private addresses are
+          unchanged. Select the image to enlarge it.
+        </figcaption>
+      </figure>
+
+      <h2>📌 Scope and limits</h2>
+      <ul>
+        <li>
+          Netwatch checks ICMP reachability. A host that answers ping can still
+          have a failed VoIP service, and a host that blocks ICMP looks down.
+        </li>
+        <li>
+          Delivery depends on the WhatsApp gateway and its connection. If the
+          gateway is unreachable, no message is sent.
+        </li>
+        <li>
+          The gateway request is plain HTTP on a private network and carries no
+          authentication in the script.
+        </li>
+      </ul>
+
+      <hr />
+      <div class="page-nav">
+        <a href="index.html">← Back to portfolio</a>
+        <span class="muted">Adi Sudana · NOC Portfolio</span>
+      </div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
