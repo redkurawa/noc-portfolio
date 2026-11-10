@@ -37,6 +37,9 @@
     .config-table th,.config-table td{padding:9px 11px;border:1px solid #d1d9e0;text-align:left;vertical-align:top}
     .config-table th{background:#f6f8fa}
     .status{display:inline-block;padding:3px 9px;border-radius:20px;background:#dafbe1;color:#116329;font-weight:700;font-size:12px}
+    .evidence-figure{margin:18px auto 24px;padding:14px;border:1px solid #d1d9e0;border-radius:12px;background:#f6f8fa;text-align:center}
+    .evidence-figure img{display:block;width:min(100%,360px);height:auto;margin:0 auto;border-radius:8px;border:1px solid #d1d9e0}
+    .evidence-figure figcaption{margin-top:10px;font-size:12px}
     @media(max-width:700px){.detail-grid{grid-template-columns:1fr}.project-hero{padding:18px}.flow-arrow{transform:rotate(90deg)}.config-table{font-size:12px}}
   </style>
 </head>
@@ -152,11 +155,13 @@
     </div>
 
     <h2>🖼️ Bukti Monitoring WhatsApp</h2>
-    <p>Dokumentasi notifikasi WhatsApp untuk kondisi host DOWN dan UP akan ditampilkan pada bagian ini. Identitas klien, nama grup, nomor telepon, dan alamat IP publik disamarkan sebelum dipublikasikan. Alamat IP private tetap dapat ditampilkan untuk menjelaskan lingkungan monitoring.</p>
-    <div class="detail-card" style="text-align:center;background:#f6f8fa">
-      <p><strong>Screenshot notifikasi DOWN / UP</strong></p>
-      <p class="muted">Area dokumentasi bukti operasional — screenshot final yang sudah dianonimkan akan ditambahkan di sini.</p>
-    </div>
+    <p>Screenshot berikut memperlihatkan notifikasi otomatis dari MikroTik Netwatch ketika beberapa host klien berubah status menjadi DOWN dan kembali UP. Nama grup, nama klien, serta bagian tengah alamat IP publik telah disamarkan. IP private tetap ditampilkan.</p>
+    <figure class="evidence-figure">
+      <a href="assets/voip-whatsapp-monitoring.jpg" target="_blank" rel="noopener">
+        <img src="assets/voip-whatsapp-monitoring.jpg" alt="Screenshot WhatsApp berisi notifikasi host UP dan DOWN dari MikroTik Netwatch yang telah disamarkan" loading="lazy" />
+      </a>
+      <figcaption class="muted">Bukti notifikasi monitoring WhatsApp — identitas klien dan bagian tengah IP publik disamarkan. Klik gambar untuk melihat ukuran lebih besar.</figcaption>
+    </figure>
 
     <h2>📈 Hasil dan Manfaat Operasional</h2>
     <ul>
