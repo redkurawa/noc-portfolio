@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="VoIP Host Availability Monitoring using MikroTik Netwatch and WhatsApp Gateway notifications." />
+  <title>VoIP Host Availability Monitoring — NOC Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .project-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+    .back-link{display:inline-flex;align-items:center;gap:8px;font-weight:600}
+    .project-hero{padding:26px;border:1px solid #d1d9e0;border-radius:12px;background:linear-gradient(135deg,#f6f8fa,#eef5ff);margin:18px 0 24px}
+    .eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0969da}
+    .project-hero h1{font-size:clamp(25px,4vw,36px);margin:8px 0 10px}
+    .lead{font-size:16px;color:#57606a;max-width:780px}
+    .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+    .pill{font-size:12px;font-weight:600;padding:5px 10px;border:1px solid #c6d8f5;border-radius:20px;background:#fff;color:#174ea6}
+    .detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:18px 0}
+    .detail-card{border:1px solid #d1d9e0;border-radius:10px;padding:18px;background:#fff;min-width:0}
+    .detail-card h2{font-size:18px;margin:0 0 12px;padding:0 0 9px;border-bottom:1px solid #eaeef2}
+    .detail-card p:last-child{margin-bottom:0}
+    .steps{counter-reset:step;list-style:none;padding:0;margin:0}
+    .steps li{counter-increment:step;display:flex;gap:12px;margin:12px 0;align-items:flex-start}
+    .steps li:before{content:counter(step);flex:0 0 27px;height:27px;border-radius:50%;display:grid;place-items:center;background:#0969da;color:#fff;font-weight:700}
+    .flow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:16px 0}
+    .flow-node{flex:1 1 120px;max-width:190px;text-align:center;border:1px solid #c6d8f5;background:#f6f8ff;border-radius:9px;padding:14px 10px;font-weight:650}
+    .flow-arrow{font-size:22px;color:#0969da;font-weight:700}
+    .code-panel{margin:12px 0 18px;border:1px solid #30363d;border-radius:10px;overflow:hidden;background:#0d1117}
+    .code-heading{display:flex;align-items:center;gap:9px;padding:11px 14px;background:#161b22;color:#e6edf3;font-weight:650}
+    .code-heading.up{border-left:4px solid #2da44e}
+    .code-heading.down{border-left:4px solid #cf222e}
+    .code-panel pre{margin:0;border-radius:0;background:#0d1117;color:#e6edf3;white-space:pre;overflow-x:auto;font-size:12px;line-height:1.65}
+    .code-panel code{color:inherit}
+    .note{padding:14px 16px;border-left:4px solid #0969da;background:#ddf4ff;border-radius:6px;margin:16px 0}
+    .muted{color:#656d76}
+    .config-table{width:100%;border-collapse:collapse}
+    .config-table th,.config-table td{padding:9px 11px;border:1px solid #d1d9e0;text-align:left;vertical-align:top}
+    .config-table th{background:#f6f8fa}
+    .status{display:inline-block;padding:3px 9px;border-radius:20px;background:#dafbe1;color:#116329;font-weight:700;font-size:12px}
+    @media(max-width:700px){.detail-grid{grid-template-columns:1fr}.project-hero{padding:18px}.flow-arrow{transform:rotate(90deg)}.config-table{font-size:12px}}
+  </style>
+</head>
+<body>
+  <main class="markdown-body">
+    <div class="project-nav">
+      <a class="back-link" href="index.html">← Kembali ke Portfolio</a>
+      <span class="muted">NOC Operations / Project 01</span>
+    </div>
+
+    <section class="project-hero">
+      <div class="eyebrow">Project 01 · Monitoring &amp; Incident Detection</div>
+      <h1>VoIP Host Availability Monitoring</h1>
+      <p class="lead">Monitoring ketersediaan host perangkat klien VoIP menggunakan MikroTik Netwatch. Ketika host tidak merespons ping, sistem mengirim notifikasi DOWN ke WhatsApp Gateway. Saat host kembali merespons, notifikasi UP dikirim sebagai informasi pemulihan.</p>
+      <div class="pill-row">
+        <span class="pill">MikroTik RouterOS</span><span class="pill">Netwatch</span><span class="pill">ICMP / Ping</span><span class="pill">HTTP POST</span><span class="pill">WhatsApp Gateway</span>
+      </div>
+    </section>
+
+    <div class="detail-grid">
+      <section class="detail-card">
+        <h2>🎯 Tujuan</h2>
+        <p>Mengetahui lebih awal apabila perangkat atau jalur jaringan klien mengalami gangguan. Tim NOC memperoleh informasi ketika host tidak dapat dijangkau dan ketika konektivitas kembali normal, sehingga pemeriksaan dapat dilakukan lebih cepat.</p>
+      </section>
+      <section class="detail-card">
+        <h2>🧩 Komponen</h2>
+        <ul>
+          <li>MikroTik RouterOS dengan fitur Netwatch</li>
+          <li>Daftar alamat IP host klien yang dipantau</li>
+          <li>Script notifikasi UP dan DOWN</li>
+          <li>WhatsApp Gateway dengan endpoint HTTP POST</li>
+          <li>Grup atau nomor penerima notifikasi NOC</li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="detail-card">
+      <h2>⚙️ Cara Kerja Sistem</h2>
+      <div class="flow">
+        <div class="flow-node">Host Klien<br><small>Perangkat VoIP</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">MikroTik<br><small>Netwatch / Ping</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">WhatsApp Gateway<br><small>HTTP API</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">Notifikasi<br><small>Tim NOC</small></div>
+      </div>
+      <ol class="steps">
+        <li>Host klien didaftarkan pada menu <strong>Tools → Netwatch</strong> di MikroTik.</li>
+        <li>Netwatch melakukan pemeriksaan konektivitas ke alamat host secara berkala.</li>
+        <li>Ketika host berubah menjadi <strong>DOWN</strong>, script DOWN dijalankan untuk mengirim pesan gangguan ke WhatsApp Gateway.</li>
+        <li>Ketika host kembali <strong>UP</strong>, script UP dijalankan untuk mengirim pesan pemulihan.</li>
+      </ol>
+    </section>
+
+    <h2>🛠️ Konfigurasi MikroTik Netwatch</h2>
+    <p>Tambahkan setiap host yang ingin dipantau pada <strong>Tools → Netwatch</strong>. Isi alamat host, interval pemeriksaan, timeout, lalu masukkan script pada kolom <strong>Up</strong> dan <strong>Down</strong>.</p>
+    <table class="config-table">
+      <thead><tr><th>Parameter</th><th>Fungsi</th></tr></thead>
+      <tbody>
+        <tr><td>Host</td><td>Alamat IP perangkat klien yang akan dipantau.</td></tr>
+        <tr><td>Interval</td><td>Jarak waktu antar pemeriksaan Netwatch.</td></tr>
+        <tr><td>Timeout</td><td>Batas waktu menunggu respons ping.</td></tr>
+        <tr><td>Up Script</td><td>Dijalankan ketika host terdeteksi kembali aktif.</td></tr>
+        <tr><td>Down Script</td><td>Dijalankan ketika host terdeteksi tidak dapat dijangkau.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>📜 Script Notifikasi UP</h2>
+    <p>Script ini berjalan ketika host kembali merespons. Terdapat jeda lima detik sebelum request dikirim ke WhatsApp Gateway.</p>
+    <div class="code-panel">
+      <div class="code-heading up">🟢 UP — Host kembali normal</div>
+      <pre><code>:local pesan "$host ASM UP"
+
+:delay 5s
+/tool fetch http-header-field="content-type: application/x-www-form-urlencoded" \
+    http-method=post \
+    http-data="phone=628xxxxxxxxxx&message=$pesan" \
+    url="http://10.50.50.101:3000/send/message" \
+    keep-result=no;</code></pre>
+    </div>
+
+    <h2>📜 Script Notifikasi DOWN</h2>
+    <p>Script melakukan pemeriksaan ping ulang sebanyak 60 kali dengan interval satu detik. Notifikasi dikirim apabila pemeriksaan ulang tersebut tidak menerima respons.</p>
+    <div class="code-panel">
+      <div class="code-heading down">🔴 DOWN — Host tidak merespons</div>
+      <pre><code>:if ([/ping $host interval=1s count=60] = 0) do={
+    :local pesan "$host%20ASM%20DOWN"
+
+    /tool fetch \
+        http-header-field="content-type: application/x-www-form-urlencoded" \
+        http-method=post \
+        http-data="phone=628xxxxxxxxxx&message=$pesan" \
+        url="http://10.50.50.101:3000/send/message" \
+        keep-result=no
+}</code></pre>
+    </div>
+    <div class="note"><strong>Catatan privasi:</strong> Nomor telepon penerima telah disamarkan. Alamat IP <code>10.50.50.101:3000</code> merupakan alamat private WhatsApp Gateway dan dipertahankan sebagai bagian dari dokumentasi arsitektur.</div>
+
+    <h2>📲 Contoh Notifikasi WhatsApp</h2>
+    <p>Pesan yang diterima tim NOC memuat alamat host dan statusnya. Contoh berikut menggunakan identitas host dan klien samaran.</p>
+    <div class="detail-grid">
+      <div class="detail-card">
+        <h3 style="color:#cf222e;margin-top:0">🔴 Host DOWN</h3>
+        <div class="code-panel"><pre><code>HOST-XXX.XXX.XXX.XX CLIENT-A DOWN</code></pre></div>
+        <p class="muted">Menandakan host tidak merespons pemeriksaan konektivitas.</p>
+      </div>
+      <div class="detail-card">
+        <h3 style="color:#1a7f37;margin-top:0">🟢 Host UP</h3>
+        <div class="code-panel"><pre><code>HOST-XXX.XXX.XXX.XX CLIENT-A UP</code></pre></div>
+        <p class="muted">Menandakan host kembali dapat dijangkau.</p>
+      </div>
+    </div>
+
+    <h2>📈 Hasil dan Manfaat Operasional</h2>
+    <ul>
+      <li>Gangguan konektivitas host dapat diketahui secara proaktif melalui notifikasi otomatis.</li>
+      <li>Tim NOC memperoleh informasi waktu kejadian DOWN dan pemulihan UP.</li>
+      <li>Pemeriksaan awal dapat diarahkan ke host atau jalur jaringan yang terdampak.</li>
+      <li>Notifikasi mengurangi ketergantungan pada laporan awal dari pengguna klien.</li>
+    </ul>
+    <p><span class="status">Monitoring &amp; alerting implemented</span></p>
+
+    <hr />
+    <div class="project-nav">
+      <a class="back-link" href="index.html">← Kembali ke Daftar Project</a>
+      <span class="muted">NOC Portfolio · Network Operations</span>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
